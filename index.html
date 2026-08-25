@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glowwave-FM | The Glow-Network & IPTV Stream</title>
+     <link rel="icon" type="image/png" href="the-glow-network.png">
+    <meta name="description" content="Tune in to Glowwave-FM, your premier internet radio station and IPTV entertainment hub. Listen to live streams, electronic beats, glowing vibes, and top IPTV services.">
+    <meta name="keywords" content="glow, glowwave, glowwave-fm, glow radio, radio station, live stream, internet radio, glow music, electronic radio, fm radio, music stream, IPTV, glowtv, IPTV stream, live IPTV, streaming services">
+    <meta name="author" content="Glowwave-FM">
+    <meta property="og:title" content="Glowwave-FM | Live Radio & IPTV Hub">
+    <meta property="og:description" content="Feel the glow. Listen to Glowwave-FM live 24/7 and explore our IPTV services.">
+    <meta property="og:type" content="website">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#6366f1', // Indigo 500
+                        secondary: '#ec4899', // Pink 500
+                        dark: '#0f172a', // Slate 900
+                        darker: '#020617', // Slate 950
+                        light: '#f8fafc',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: theme('colors.darker');
+            color: theme('colors.light');
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism utilities */
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Visualizer Animation */
+        .bar {
+            width: 6px;
+            background: linear-gradient(to top, theme('colors.primary'), theme('colors.secondary'));
+            border-radius: 9999px;
+            animation: bounce 1s infinite alternate;
+            transform-origin: bottom;
+        }
+
+        @keyframes bounce {
+            0% { transform: scaleY(0.2); }
+            100% { transform: scaleY(1); }
+        }
+
+        .bar:nth-child(1) { animation-delay: 0.1s; }
+        .bar:nth-child(2) { animation-delay: 0.3s; }
+        .bar:nth-child(3) { animation-delay: 0.0s; }
+        .bar:nth-child(4) { animation-delay: 0.4s; }
+        .bar:nth-child(5) { animation-delay: 0.2s; }
+        
+        .playing .bar {
+            animation-play-state: running;
+        }
+        
+        .paused .bar {
+            animation-play-state: paused;
+            transform: scaleY(0.2);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: theme('colors.darker');
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.primary');
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.secondary');
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(to right, theme('colors.primary'), theme('colors.secondary'));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="glass fixed w-full z-50 top-0 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-xl shadow-[0_0_15px_rgba(99,102,241,0.6)]">
+                        <i class="fa-solid fa-tower-broadcast"></i>
+                    </div>
+                    <span class="font-heading font-bold text-2xl tracking-tight text-white">Glowwave<span class="text-primary">-FM</span></span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium text-white">Home</a>
+                        <a href="https://glowlinks.net/glowtv" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium text-gray-300">IPTV</a>
+                        <a href="#contact" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium text-gray-300">Contact</a>
+                    </div>
+                </div>
+
+                <div class="hidden md:block">
+                    <button onclick="document.getElementById('player-section').scrollIntoView({behavior: 'smooth'})" class="bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-white font-bold py-2 px-6 rounded-full shadow-lg shadow-primary/30 transition-all duration-300 transform hover:-translate-y-1">
+                        Listen Now <i class="fa-solid fa-play ml-2 text-xs"></i>
+                    </button>
+                </div>
+
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" id="mobile-menu-btn" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="md:hidden hidden glass absolute w-full" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="https://glowlinks.net/glowtv" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">IPTV</a>
+                <a href="#contact" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+                <a href="#player-section" class="text-primary font-bold block px-3 py-2 rounded-md text-base">Listen Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex-grow flex items-center">
+        <!-- Background decorative elements -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+            <div class="absolute -top-40 -right-40 w-96 h-96 bg-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow"></div>
+            <div class="absolute top-40 -left-40 w-96 h-96 bg-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow" style="animation-delay: 2s;"></div>
+            <!-- Subtle grid background -->
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-50"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <div class="text-center lg:text-left">
+                    <div class="inline-flex items-center px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-sm font-semibold mb-6">
+                        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse mr-2"></span> Live 24/7
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-heading font-extrabold tracking-tight mb-6 leading-tight">
+                        Feel The <br />
+                        <span class="text-gradient">Glow</span> Of <br />
+                        The City.
+                    </h1>
+                    <p class="mt-4 text-xl text-gray-400 max-w-2xl mx-auto lg:mx-0 mb-8 font-light">
+                        Broadcasting the best electronic, indie, and alternative beats. Tune in to Glowwave-FM and elevate your auditory experience.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <button onclick="document.getElementById('player-section').scrollIntoView({behavior: 'smooth'})" class="bg-white text-darker hover:bg-gray-200 font-bold py-4 px-8 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-transform transform hover:-translate-y-1 flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-circle-play text-2xl text-primary"></i> Start Listening
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hero Visual -->
+                <div class="relative mx-auto w-full max-w-md lg:max-w-full lg:ml-auto flex justify-center">
+                    <div class="relative w-72 h-72 md:w-96 md:h-96">
+                        <!-- Rotating record effect -->
+                        <div class="absolute inset-0 rounded-full border-4 border-gray-800 bg-darker shadow-2xl flex items-center justify-center overflow-hidden z-10 animate-spin-slow group" id="hero-record">
+                            <!-- Record Grooves -->
+                            <div class="absolute inset-2 rounded-full border border-gray-700/50"></div>
+                            <div class="absolute inset-6 rounded-full border border-gray-700/50"></div>
+                            <div class="absolute inset-10 rounded-full border border-gray-700/50"></div>
+                            <div class="absolute inset-14 rounded-full border border-gray-700/50"></div>
+                            <div class="absolute inset-18 rounded-full border border-gray-700/50"></div>
+                            
+                            <!-- Center Label -->
+                            <div class="w-32 h-32 rounded-full bg-gradient-to-tr from-primary to-secondary flex items-center justify-center relative shadow-inner">
+                                <div class="w-4 h-4 rounded-full bg-darker border-2 border-gray-400 z-20"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                     <span class="font-heading font-bold text-white/80 text-xs tracking-widest uppercase transform -rotate-12">Glowwave-FM</span>
+                                </div>
+                            </div>
+                            
+                            <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 transform -rotate-45 pointer-events-none"></div>
+                        </div>
+                        
+                        <!-- Floating elements -->
+                        <div class="absolute -top-6 -right-6 w-20 h-20 glass-panel rounded-2xl flex items-center justify-center z-20 shadow-xl border-t border-l border-white/20 transform rotate-12">
+                            <i class="fa-solid fa-music text-3xl text-secondary"></i>
+                        </div>
+                        <div class="absolute -bottom-4 -left-4 w-16 h-16 glass-panel rounded-full flex items-center justify-center z-20 shadow-xl border-t border-l border-white/20 transform -rotate-12">
+                            <i class="fa-solid fa-headphones text-2xl text-primary"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="player-section" class="py-16 relative z-20 border-t border-white/10 bg-darker/80 backdrop-blur-md">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="glass-panel p-6 md:p-8 shadow-2xl relative overflow-hidden flex flex-col items-center">
+                <!-- Decorative glow inside player -->
+                <div class="absolute -top-24 -right-24 w-48 h-48 bg-primary/20 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-secondary/20 rounded-full blur-3xl"></div>
+
+                <div class="flex items-center gap-3 mb-6 relative z-10">
+                    <span class="bg-red-500/20 text-red-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-2 border border-red-500/30">
+                        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> Live Broadcast
+                    </span>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-8 items-center justify-between w-full relative z-10">
+                    
+                    <!-- Play Button -->
+                    <button id="play-pause-btn" class="w-20 h-20 flex-shrink-0 rounded-full bg-gradient-to-r from-primary to-secondary text-white flex items-center justify-center hover:scale-105 transition-transform shadow-[0_0_20px_rgba(99,102,241,0.4)]">
+                        <i class="fa-solid fa-play text-3xl ml-2" id="play-icon"></i>
+                    </button>
+                    
+                    <!-- Visualizer -->
+                    <div class="flex-grow flex justify-center items-center h-16 w-full">
+                        <div id="visualizer" class="flex items-end h-full gap-2 paused">
+                            <div class="bar h-full w-2"></div>
+                            <div class="bar h-4/5 w-2"></div>
+                            <div class="bar h-full w-2"></div>
+                            <div class="bar h-3/5 w-2"></div>
+                            <div class="bar h-full w-2"></div>
+                            <div class="bar h-4/5 w-2"></div>
+                            <div class="bar h-full w-2"></div>
+                        </div>
+                    </div>
+
+                    <!-- Volume Control -->
+                    <div class="flex items-center gap-4 flex-shrink-0">
+                        <button class="text-gray-400 hover:text-white transition-colors w-8" title="Mute">
+                            <i class="fa-solid fa-volume-high text-xl" id="mute-btn"></i>
+                        </button>
+                        
+                        <div class="w-32 h-2 bg-gray-800 rounded-full relative cursor-pointer group border border-gray-700/50" id="volume-container">
+                            <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-primary to-secondary rounded-full w-3/4 shadow-[0_0_10px_rgba(99,102,241,0.5)]" id="volume-bar"></div>
+                            <div class="absolute top-1/2 -mt-2 h-4 w-4 bg-white rounded-full shadow-lg left-3/4 transform -translate-x-1/2 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity" id="volume-knob"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Status Message -->
+                <p id="player-status" class="text-xs mt-6 text-gray-400 tracking-widest uppercase font-medium">Ready to play</p>
+            </div>
+            
+
+            <audio id="radio-audio" preload="none">
+                <!-- Replace the 'src' value below with your actual radio stream link (.mp3, .aac, etc.) -->
+                <source id="audio-source" src="https://wavehub.uk/api/functions/stationStream?uuid=1cf33481-5bc1-4e66-a95f-9d5278542df1" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <!-- ========================================== -->
+
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 relative z-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-5xl font-heading font-bold text-white mb-8">Get In <span class="text-gradient">Touch</span></h2>
+            
+            <div class="glass-panel p-10 md:p-16 shadow-2xl relative overflow-hidden border border-white/10">
+                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-primary to-secondary"></div>
+                
+                <div class="w-20 h-20 mx-auto rounded-full bg-darker flex items-center justify-center mb-6 shadow-inner border border-gray-800">
+                    <i class="fa-solid fa-envelope-open-text text-3xl text-primary"></i>
+                </div>
+                
+                <p class="text-lg md:text-xl text-gray-300 mb-4 font-light">
+                    Have a question, want to submit a track, or just saying hello?
+                </p>
+                <p class="text-gray-400 mb-8 max-w-lg mx-auto">
+                    We'd love to hear from you. Drop us an email and our team will get back to you as soon as possible.
+                </p>
+                
+                <a href="mailto:studio@glowwave-fm.com" class="inline-flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/20 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hover:border-primary/50 group">
+                    <i class="fa-solid fa-envelope text-secondary group-hover:scale-110 transition-transform"></i>
+                    <span class="tracking-wide">studio@glowwave-fm.com</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darker pt-16 pb-8 border-t border-white/5 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-12">
+                
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-sm shadow-[0_0_10px_rgba(99,102,241,0.5)]">
+                            <i class="fa-solid fa-tower-broadcast"></i>
+                        </div>
+                        <span class="font-heading font-bold text-xl tracking-tight text-white">Glowwave<span class="text-primary">-FM</span></span>
+                    </div>
+                    <p class="text-gray-400 text-sm max-w-sm mb-6">
+                        Independent radio broadcasting live from the heart of the city. Supporting local artists and bringing you the best alternative sounds 24/7.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#home" class="hover:text-primary transition-colors">Home</a></li>
+                        <li><a href="https://glowlinks.net/glowtv" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">IPTV Service</a></li>
+                        <li><a href="#contact" class="hover:text-primary transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Submit Music</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Newsletter</h4>
+                    <p class="text-gray-400 text-sm mb-4">Get updates on special events and guest mixes.</p>
+                    <form class="flex" onsubmit="event.preventDefault(); alert('Subscribed!');">
+                        <input type="email" placeholder="Email address" class="bg-gray-800/50 border border-gray-700 text-white text-sm rounded-l-lg px-3 py-2 w-full focus:outline-none focus:border-primary">
+                        <button type="submit" class="bg-primary hover:bg-indigo-600 text-white px-3 py-2 rounded-r-lg transition-colors">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm text-center md:text-left">
+                    &copy; 2026 Glowwave-FM. All rights reserved.
+                </p>
+                <div class="flex space-x-4 text-sm text-gray-500">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Application Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Navbar Scroll Effect ---
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 20) {
+                    navbar.classList.add('shadow-lg', 'bg-darker/90');
+                    navbar.classList.remove('glass');
+                } else {
+                    navbar.classList.remove('shadow-lg', 'bg-darker/90');
+                    navbar.classList.add('glass');
+                }
+            });
+
+            // --- Mobile Menu Toggle ---
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Close mobile menu on link click
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // --- Custom Audio Player Logic ---
+            const audio = document.getElementById('radio-audio');
+            const audioSource = document.getElementById('audio-source');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const playIcon = document.getElementById('play-icon');
+            const visualizer = document.getElementById('visualizer');
+            const heroRecord = document.getElementById('hero-record');
+            
+            const muteBtn = document.getElementById('mute-btn');
+            const volumeContainer = document.getElementById('volume-container');
+            const volumeBar = document.getElementById('volume-bar');
+            const volumeKnob = document.getElementById('volume-knob');
+            const playerStatus = document.getElementById('player-status');
+            
+            const setPlayingUI = () => {
+                playIcon.classList.remove('fa-play', 'ml-2');
+                playIcon.classList.add('fa-pause');
+                visualizer.classList.remove('paused');
+                visualizer.classList.add('playing');
+                heroRecord.style.animationPlayState = 'running';
+                playerStatus.textContent = 'Playing Live';
+                playerStatus.classList.add('text-primary');
+            };
+
+            const setPausedUI = () => {
+                playIcon.classList.remove('fa-pause');
+                playIcon.classList.add('fa-play', 'ml-2');
+                visualizer.classList.remove('playing');
+                visualizer.classList.add('paused');
+                heroRecord.style.animationPlayState = 'paused';
+                playerStatus.textContent = 'Paused';
+                playerStatus.classList.remove('text-primary');
+            };
+
+            // Initial State for animations (paused)
+            heroRecord.style.animationPlayState = 'paused';
+
+            // Play/Pause Toggle
+            playPauseBtn.addEventListener('click', () => {
+                if (audio.paused) {
+                    // Try to play
+                    const playPromise = audio.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.then(_ => {
+                            setPlayingUI();
+                        })
+                        .catch(error => {
+                            console.error("Playback prevented:", error);
+                            // Usually auto-play policy issues or invalid stream
+                            playerStatus.textContent = 'Playback error. Stream might be offline.';
+                            playerStatus.classList.add('text-red-400');
+                            setPausedUI();
+                        });
+                    }
+                } else {
+                    audio.pause();
+                    setPausedUI();
+                }
+            });
+
+            // Handle Audio Events to ensure UI stays in sync
+            audio.addEventListener('play', setPlayingUI);
+            audio.addEventListener('pause', setPausedUI);
+            audio.addEventListener('ended', setPausedUI);
+            audio.addEventListener('error', (e) => {
+                console.error("Audio error:", e);
+                setPausedUI();
+                playerStatus.textContent = 'Error connecting to stream.';
+                playerStatus.classList.add('text-red-400');
+            });
+            audio.addEventListener('waiting', () => {
+                playIcon.classList.remove('fa-play', 'fa-pause', 'ml-2');
+                playIcon.classList.add('fa-spinner', 'fa-spin');
+                playerStatus.textContent = 'Buffering...';
+            });
+            audio.addEventListener('playing', setPlayingUI);
+
+            // --- Volume Control ---
+            let currentVolume = 0.75; // 75%
+            let isMuted = false;
+            
+            // Set initial volume
+            audio.volume = currentVolume;
+            updateVolumeUI(currentVolume);
+
+            function updateVolumeUI(vol) {
+                const percentage = vol * 100;
+                volumeBar.style.width = `${percentage}%`;
+                volumeKnob.style.left = `${percentage}%`;
+                
+                // Update icon based on volume
+                muteBtn.className = ''; // reset classes
+                if (vol === 0 || isMuted) {
+                    muteBtn.classList.add('fa-solid', 'fa-volume-xmark', 'text-xl', 'text-red-400');
+                } else if (vol < 0.5) {
+                    muteBtn.classList.add('fa-solid', 'fa-volume-low', 'text-xl');
+                } else {
+                    muteBtn.classList.add('fa-solid', 'fa-volume-high', 'text-xl');
+                }
+            }
+
+            // Click on volume bar
+            volumeContainer.addEventListener('click', (e) => {
+                const rect = volumeContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                let newVolume = x / rect.width;
+                
+                // Clamp between 0 and 1
+                newVolume = Math.max(0, Math.min(1, newVolume));
+                
+                isMuted = false;
+                currentVolume = newVolume;
+                audio.volume = currentVolume;
+                updateVolumeUI(currentVolume);
+            });
+
+            // Mute toggle
+            muteBtn.addEventListener('click', () => {
+                isMuted = !isMuted;
+                if (isMuted) {
+                    audio.volume = 0;
+                    updateVolumeUI(0);
+                } else {
+                    audio.volume = currentVolume;
+                    updateVolumeUI(currentVolume);
+                }
+            });
+
+            let isDragging = false;
+            
+            const handleDrag = (e) => {
+                if (!isDragging) return;
+                
+                const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                
+                const rect = volumeContainer.getBoundingClientRect();
+                let x = clientX - rect.left;
+                let newVolume = x / rect.width;
+                
+                newVolume = Math.max(0, Math.min(1, newVolume));
+                
+                isMuted = false;
+                currentVolume = newVolume;
+                audio.volume = currentVolume;
+                updateVolumeUI(currentVolume);
+            };
+
+            volumeContainer.addEventListener('mousedown', () => isDragging = true);
+            volumeContainer.addEventListener('touchstart', (e) => {
+                isDragging = true;
+
+                if(e.cancelable) e.preventDefault(); 
+            }, { passive: false });
+            
+            document.addEventListener('mousemove', handleDrag);
+            document.addEventListener('touchmove', handleDrag, { passive: false });
+            
+            document.addEventListener('mouseup', () => isDragging = false);
+            document.addEventListener('touchend', () => isDragging = false);
+
+        });
+    </script>
+</body>
+</html>
