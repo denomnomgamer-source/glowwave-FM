@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glowwave-FM | The Glow-Network & IPTV Stream</title>
-    <link rel="icon" type="image/png" href="the-glow-network.png">
+    <link id="favicon" rel="icon" type="image/png" href="the-glow-network.png">
     <meta name="description" content="Tune in to Glowwave-FM, your premier internet radio station and IPTV entertainment hub. Listen to live streams, electronic beats, glowing vibes, and top IPTV services.">
     <meta name="keywords" content="glow, glowwave, glowwave-fm, glow radio, radio station, live stream, internet radio, glow music, electronic radio, fm radio, music stream, IPTV, glowtv, IPTV stream, live IPTV, streaming services">
     <meta name="author" content="Glowwave-FM">
@@ -123,7 +123,7 @@
                 
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
-                        <a href=https://glowwavefm.com/ class="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium text-white">Home</a>
+                        <a href="https://glowwavefm.com/" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium text-white">Home</a>
                         <a href="https://glowlinks.net/glowtv" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium text-gray-300">IPTV</a>
                         <a href="#contact" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium text-gray-300">Contact</a>
                     </div>
@@ -146,8 +146,8 @@
 
         <div class="md:hidden hidden glass absolute w-full" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="https://glowwavefm.com class="text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
-                <a href="https://glowlinks.net/glowtv target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">IPTV</a>
+                <a href="https://glowwavefm.com/" class="text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="https://glowlinks.net/glowtv" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">IPTV</a>
                 <a href="#contact" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact</a>
                 <a href="#player-section" class="text-primary font-bold block px-3 py-2 rounded-md text-base">Listen Now</a>
             </div>
@@ -401,6 +401,7 @@
             const heroRecord = document.getElementById('hero-record');
             const gainBarL = document.getElementById('gain-bar-l');
             const gainBarR = document.getElementById('gain-bar-r');
+            const faviconTag = document.getElementById('favicon');
             
             const muteBtn = document.getElementById('mute-btn');
             const volumeContainer = document.getElementById('volume-container');
@@ -415,6 +416,46 @@
             let analyser = null;
             let dataArray = null;
             let animationFrameId = null;
+            let faviconAnimInterval = null;
+
+            // Canvas generator for animated playing favicon indicator
+            function updateDynamicFavicon() {
+                if (audio.paused) return;
+                const canvas = document.createElement('canvas');
+                canvas.width = 64;
+                canvas.height = 64;
+                const ctx = canvas.getContext('2d');
+
+                // Dark rounded background
+                ctx.fillStyle = '#020617';
+                ctx.beginPath();
+                ctx.roundRect(0, 0, 64, 64, 16);
+                ctx.fill();
+
+                // Glowing border
+                ctx.strokeStyle = '#6366f1';
+                ctx.lineWidth = 4;
+                ctx.stroke();
+
+                // Draw bouncing audio bars inside favicon
+                const barWidth = 8;
+                const gap = 5;
+                let startX = 11;
+                const heights = [
+                    Math.random() * 32 + 10,
+                    Math.random() * 40 + 8,
+                    Math.random() * 35 + 12,
+                    Math.random() * 42 + 6
+                ];
+
+                for (let i = 0; i < 4; i++) {
+                    ctx.fillStyle = i % 2 === 0 ? '#6366f1' : '#ec4899';
+                    ctx.fillRect(startX, 54 - heights[i], barWidth, heights[i]);
+                    startX += barWidth + gap;
+                }
+
+                faviconTag.href = canvas.toDataURL('image/png');
+            }
 
             function initAudioContext() {
                 if (!audioCtx) {
@@ -478,6 +519,10 @@
                 if (!animationFrameId) {
                     updateAudioMeters();
                 }
+
+                if (!faviconAnimInterval) {
+                    faviconAnimInterval = setInterval(updateDynamicFavicon, 200);
+                }
             };
 
             const setPausedUI = () => {
@@ -490,6 +535,13 @@
                 playerStatus.classList.remove('text-primary');
                 gainBarL.style.width = '0%';
                 gainBarR.style.width = '0%';
+
+                if (faviconAnimInterval) {
+                    clearInterval(faviconAnimInterval);
+                    faviconAnimInterval = null;
+                }
+                // Reset favicon back to default logo
+                faviconTag.href = "the-glow-network.png";
             };
 
             heroRecord.style.animationPlayState = 'paused';
