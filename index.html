@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glowwave-FM | The Glow-Network & IPTV Stream</title>
-     <link rel="icon" type="image/png" href="the-glow-network.png">
+    <link rel="icon" type="image/png" href="the-glow-network.png">
     <meta name="description" content="Tune in to Glowwave-FM, your premier internet radio station and IPTV entertainment hub. Listen to live streams, electronic beats, glowing vibes, and top IPTV services.">
     <meta name="keywords" content="glow, glowwave, glowwave-fm, glow radio, radio station, live stream, internet radio, glow music, electronic radio, fm radio, music stream, IPTV, glowtv, IPTV stream, live IPTV, streaming services">
     <meta name="author" content="Glowwave-FM">
@@ -44,7 +44,6 @@
             overflow-x: hidden;
         }
 
-        /* Glassmorphism utilities */
         .glass {
             background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(12px);
@@ -59,7 +58,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Visualizer Animation */
         .bar {
             width: 6px;
             background: linear-gradient(to top, theme('colors.primary'), theme('colors.secondary'));
@@ -88,7 +86,6 @@
             transform: scaleY(0.2);
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -103,7 +100,6 @@
             background: theme('colors.secondary');
         }
 
-        /* Gradient Text */
         .text-gradient {
             background: linear-gradient(to right, theme('colors.primary'), theme('colors.secondary'));
             -webkit-background-clip: text;
@@ -127,8 +123,8 @@
                 
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#home" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium text-white">Home</a>
-                        <a href="https://glowtv.shop/glowtv" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium text-gray-300">IPTV</a>
+                        <a href=https://glowwavefm.com/ class="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium text-white">Home</a>
+                        <a href="https://glowlinks.net/glowtv" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium text-gray-300">IPTV</a>
                         <a href="#contact" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium text-gray-300">Contact</a>
                     </div>
                 </div>
@@ -150,21 +146,20 @@
 
         <div class="md:hidden hidden glass absolute w-full" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" class="text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
-                <a href="https://glowtv.shop/glowtv" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">IPTV</a>
+                <a href="https://glowwavefm.com class="text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="https://glowlinks.net/glowtv target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">IPTV</a>
                 <a href="#contact" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact</a>
                 <a href="#player-section" class="text-primary font-bold block px-3 py-2 rounded-md text-base">Listen Now</a>
             </div>
         </div>
     </nav>
 
-
     <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex-grow flex items-center">
-
+        <!-- Background decorative elements -->
         <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
             <div class="absolute -top-40 -right-40 w-96 h-96 bg-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow"></div>
             <div class="absolute top-40 -left-40 w-96 h-96 bg-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow" style="animation-delay: 2s;"></div>
-
+            <!-- Subtle grid background -->
             <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-50"></div>
         </div>
 
@@ -181,7 +176,7 @@
                         The City.
                     </h1>
                     <p class="mt-4 text-xl text-gray-400 max-w-2xl mx-auto lg:mx-0 mb-8 font-light">
-                        Broadcasting the best Music, 24bit FLAC. Tune in to Glowwave-FM and elevate your auditory experience.
+                        Broadcasting the best electronic, indie, and alternative beats. Tune in to Glowwave-FM and elevate your auditory experience.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                         <button onclick="document.getElementById('player-section').scrollIntoView({behavior: 'smooth'})" class="bg-white text-darker hover:bg-gray-200 font-bold py-4 px-8 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-transform transform hover:-translate-y-1 flex items-center justify-center gap-3">
@@ -190,19 +185,17 @@
                     </div>
                 </div>
 
-                <!-- Hero Visual -->
                 <div class="relative mx-auto w-full max-w-md lg:max-w-full lg:ml-auto flex justify-center">
                     <div class="relative w-72 h-72 md:w-96 md:h-96">
-                        <!-- Rotating record effect -->
+
                         <div class="absolute inset-0 rounded-full border-4 border-gray-800 bg-darker shadow-2xl flex items-center justify-center overflow-hidden z-10 animate-spin-slow group" id="hero-record">
-                            <!-- Record Grooves -->
+
                             <div class="absolute inset-2 rounded-full border border-gray-700/50"></div>
                             <div class="absolute inset-6 rounded-full border border-gray-700/50"></div>
                             <div class="absolute inset-10 rounded-full border border-gray-700/50"></div>
                             <div class="absolute inset-14 rounded-full border border-gray-700/50"></div>
                             <div class="absolute inset-18 rounded-full border border-gray-700/50"></div>
                             
-                            <!-- Center Label -->
                             <div class="w-32 h-32 rounded-full bg-gradient-to-tr from-primary to-secondary flex items-center justify-center relative shadow-inner">
                                 <div class="w-4 h-4 rounded-full bg-darker border-2 border-gray-400 z-20"></div>
                                 <div class="absolute inset-0 flex items-center justify-center">
@@ -229,7 +222,7 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div class="glass-panel p-6 md:p-8 shadow-2xl relative overflow-hidden flex flex-col items-center">
-                <!-- Decorative glow inside player -->
+
                 <div class="absolute -top-24 -right-24 w-48 h-48 bg-primary/20 rounded-full blur-3xl"></div>
                 <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-secondary/20 rounded-full blur-3xl"></div>
 
@@ -239,14 +232,12 @@
                     </span>
                 </div>
 
-                <div class="flex flex-col md:flex-row gap-8 items-center justify-between w-full relative z-10">
+                <div class="flex flex-col lg:flex-row gap-6 items-center justify-between w-full relative z-10">
                     
-                    <!-- Play Button -->
-                    <button id="play-pause-btn" class="w-20 h-20 flex-shrink-0 rounded-full bg-gradient-to-r from-primary to-secondary text-white flex items-center justify-center hover:scale-105 transition-transform shadow-[0_0_20px_rgba(99,102,241,0.4)]">
+                    <button id="play-pause-btn" class="w-20 h-20 flex-shrink-0 rounded-full bg-gradient-to-r from-primary to-secondary text-white flex items-center justify-center hover:scale-105 transition-transform shadow-[0_0_20px_rgba(99,102,241,0.4)]" title="Play / Pause / Double-click to Reconnect">
                         <i class="fa-solid fa-play text-3xl ml-2" id="play-icon"></i>
                     </button>
                     
-                    <!-- Visualizer -->
                     <div class="flex-grow flex justify-center items-center h-16 w-full">
                         <div id="visualizer" class="flex items-end h-full gap-2 paused">
                             <div class="bar h-full w-2"></div>
@@ -259,7 +250,21 @@
                         </div>
                     </div>
 
-                    <!-- Volume Control -->
+                    <div class="flex flex-col justify-center gap-1.5 w-32 flex-shrink-0 px-2">
+                        <div class="flex items-center gap-1">
+                            <span class="text-[9px] text-gray-400 font-mono w-4">L</span>
+                            <div class="h-1.5 flex-grow bg-gray-800 rounded-full overflow-hidden border border-gray-700/50">
+                                <div id="gain-bar-l" class="h-full bg-gradient-to-r from-primary to-secondary w-0 transition-all duration-75"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <span class="text-[9px] text-gray-400 font-mono w-4">R</span>
+                            <div class="h-1.5 flex-grow bg-gray-800 rounded-full overflow-hidden border border-gray-700/50">
+                                <div id="gain-bar-r" class="h-full bg-gradient-to-r from-primary to-secondary w-0 transition-all duration-75"></div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="flex items-center gap-4 flex-shrink-0">
                         <button class="text-gray-400 hover:text-white transition-colors w-8" title="Mute">
                             <i class="fa-solid fa-volume-high text-xl" id="mute-btn"></i>
@@ -275,8 +280,7 @@
                 <p id="player-status" class="text-xs mt-6 text-gray-400 tracking-widest uppercase font-medium">Ready to play</p>
             </div>
             
-
-            <audio id="radio-audio" preload="none">
+            <audio id="radio-audio" preload="none" crossorigin="anonymous">
                 <source id="audio-source" src="https://wavehub.uk/api/functions/stationStream?uuid=1cf33481-5bc1-4e66-a95f-9d5278542df1" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
@@ -302,7 +306,7 @@
                     We'd love to hear from you. Drop us an email and our team will get back to you as soon as possible.
                 </p>
                 
-                <a href="mailto:NOVOHC-499@proton.me" class="inline-flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/20 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hover:border-primary/50 group">
+                <a href="mailto:NOVOHC-499@proton.me.com" class="inline-flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/20 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hover:border-primary/50 group">
                     <i class="fa-solid fa-envelope text-secondary group-hover:scale-110 transition-transform"></i>
                     <span class="tracking-wide">NOVOHC-499@proton.me</span>
                 </a>
@@ -329,17 +333,18 @@
                 <div>
                     <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Quick Links</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#home" class="hover:text-primary transition-colors">Home</a></li>
-                        <li><a href="https://glowlinks.net/glowtv" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">IPTV Service</a></li>
-                        <li><a href="#contact" class="hover:text-primary transition-colors">Contact Us</a></li>
-                        <li><a href="#" class="hover:text-primary transition-colors">Submit Music</a></li>
+                        <li><a href="https://glowwavefm.com/" class="hover:text-primary transition-colors">Home</a></li>
+                        <li><a href="https://glowtv.org/glowtv" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">IPTV Service</a></li>
+                        <li><a href="https://glownetwork.net" class="hover:text-primary transition-colors">Home</a></li>
+                        <li><a href="https://glowwavefm.com/contact" class="hover:text-primary transition-colors">Contact Us</a></li>
+                        <li><a href="https://glowwavefm.com/" class="hover:text-primary transition-colors">Submit Music</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Newsletter</h4>
                     <p class="text-gray-400 text-sm mb-4">Get updates on special events and guest mixes.</p>
-                    <form class="flex" onsubmit="event.preventDefault(); alert('Subscribed!');">
+                    <form class="flex" onsubmit="event.preventDefault();">
                         <input type="email" placeholder="Email address" class="bg-gray-800/50 border border-gray-700 text-white text-sm rounded-l-lg px-3 py-2 w-full focus:outline-none focus:border-primary">
                         <button type="submit" class="bg-primary hover:bg-indigo-600 text-white px-3 py-2 rounded-r-lg transition-colors">
                             <i class="fa-solid fa-paper-plane"></i>
@@ -351,20 +356,19 @@
             
             <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-gray-500 text-sm text-center md:text-left">
-                    &copy; 2026 TGN The Glow-Network. All rights reserved.
+                    &copy; 2026 The Glow-Network. All rights reserved.
                 </p>
                 <div class="flex space-x-4 text-sm text-gray-500">
-                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="https://glowwavefm.com/privacy" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="https://glowwavefm.com/terms" class="hover:text-white transition-colors">Terms of Service</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Application Logic -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Navbar Scroll Effect ---
+          
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 20) {
@@ -376,7 +380,6 @@
                 }
             });
 
-            // --- Mobile Menu Toggle ---
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
             
@@ -384,20 +387,20 @@
                 mobileMenu.classList.toggle('hidden');
             });
             
-            // Close mobile menu on link click
             mobileMenu.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.add('hidden');
                 });
             });
 
-            // --- Custom Audio Player Logic ---
             const audio = document.getElementById('radio-audio');
             const audioSource = document.getElementById('audio-source');
             const playPauseBtn = document.getElementById('play-pause-btn');
             const playIcon = document.getElementById('play-icon');
             const visualizer = document.getElementById('visualizer');
             const heroRecord = document.getElementById('hero-record');
+            const gainBarL = document.getElementById('gain-bar-l');
+            const gainBarR = document.getElementById('gain-bar-r');
             
             const muteBtn = document.getElementById('mute-btn');
             const volumeContainer = document.getElementById('volume-container');
@@ -405,42 +408,129 @@
             const volumeKnob = document.getElementById('volume-knob');
             const playerStatus = document.getElementById('player-status');
             
+            let lastClickTime = 0;
+            const doubleClickThreshold = 300;
+
+            let audioCtx = null;
+            let analyser = null;
+            let dataArray = null;
+            let animationFrameId = null;
+
+            function initAudioContext() {
+                if (!audioCtx) {
+                    try {
+                        const AudioContext = window.AudioContext || window.webkitAudioContext;
+                        audioCtx = new AudioContext();
+                        analyser = audioCtx.createAnalyser();
+                        analyser.fftSize = 64;
+                        
+                        const source = audioCtx.createMediaElementSource(audio);
+                        source.connect(analyser);
+                        analyser.connect(audioCtx.destination);
+                        
+                        dataArray = new Uint8Array(analyser.frequencyBinCount);
+                    } catch (e) {
+                        console.error("Web Audio API error or CORS restriction on stream:", e);
+                    }
+                }
+                if (audioCtx && audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+            }
+
+            function updateAudioMeters() {
+                if (!audio.paused && analyser && dataArray) {
+                    analyser.getByteFrequencyData(dataArray);
+                    
+                    let sumL = 0, sumR = 0;
+                    const halfLength = Math.floor(dataArray.length / 2);
+                    
+                    for (let i = 0; i < halfLength; i++) {
+                        sumL += dataArray[i];
+                    }
+                    for (let i = halfLength; i < dataArray.length; i++) {
+                        sumR += dataArray[i];
+                    }
+                    
+                    const avgL = (sumL / halfLength) / 255 * 100;
+                    const avgR = (sumR / halfLength) / 255 * 100;
+                    
+                    gainBarL.style.width = `${Math.max(5, Math.min(100, avgL * 1.5))}%`;
+                    gainBarR.style.width = `${Math.max(5, Math.min(100, avgR * 1.5))}%`;
+                } else {
+                    gainBarL.style.width = '0%';
+                    gainBarR.style.width = '0%';
+                }
+                animationFrameId = requestAnimationFrame(updateAudioMeters);
+            }
+
             const setPlayingUI = () => {
-                playIcon.classList.remove('fa-play', 'ml-2');
+                playIcon.classList.remove('fa-play', 'fa-spinner', 'fa-spin', 'ml-2');
                 playIcon.classList.add('fa-pause');
                 visualizer.classList.remove('paused');
                 visualizer.classList.add('playing');
                 heroRecord.style.animationPlayState = 'running';
                 playerStatus.textContent = 'Playing Live';
+                playerStatus.classList.remove('text-red-400');
                 playerStatus.classList.add('text-primary');
+                
+                initAudioContext();
+                if (!animationFrameId) {
+                    updateAudioMeters();
+                }
             };
 
             const setPausedUI = () => {
-                playIcon.classList.remove('fa-pause');
+                playIcon.classList.remove('fa-pause', 'fa-spinner', 'fa-spin');
                 playIcon.classList.add('fa-play', 'ml-2');
                 visualizer.classList.remove('playing');
                 visualizer.classList.add('paused');
                 heroRecord.style.animationPlayState = 'paused';
                 playerStatus.textContent = 'Paused';
                 playerStatus.classList.remove('text-primary');
+                gainBarL.style.width = '0%';
+                gainBarR.style.width = '0%';
             };
 
-            // Initial State for animations (paused)
             heroRecord.style.animationPlayState = 'paused';
 
-            // Play/Pause Toggle
+            // Reconnect / Play / Pause Toggle Handler
             playPauseBtn.addEventListener('click', () => {
-                if (audio.paused) {
-                    // Try to play
-                    const playPromise = audio.play();
+                const currentTime = Date.now();
+                const isDoubleClick = (currentTime - lastClickTime) < doubleClickThreshold;
+                lastClickTime = currentTime;
+
+                if (isDoubleClick || (!audio.paused && audio.networkState !== HTMLMediaElement.NETWORK_EMPTY)) {
+                    playerStatus.textContent = 'Reconnecting stream...';
+                    playIcon.className = 'fa-solid fa-spinner fa-spin text-3xl';
                     
+                    const currentSrc = audioSource.src;
+                    audio.pause();
+                    audioSource.src = '';
+                    
+                    setTimeout(() => {
+                        audioSource.src = currentSrc + (currentSrc.includes('?') ? '&' : '?') + '_t=' + Date.now();
+                        audio.load();
+                        audio.play().then(() => {
+                            setPlayingUI();
+                        }).catch(err => {
+                            console.error("Reconnect failed:", err);
+                            playerStatus.textContent = 'Reconnect failed. Try again.';
+                            playerStatus.classList.add('text-red-400');
+                            setPausedUI();
+                        });
+                    }, 300);
+                    return;
+                }
+
+                if (audio.paused) {
+                    const playPromise = audio.play();
                     if (playPromise !== undefined) {
                         playPromise.then(_ => {
                             setPlayingUI();
                         })
                         .catch(error => {
                             console.error("Playback prevented:", error);
-                            // Usually auto-play policy issues or invalid stream
                             playerStatus.textContent = 'Playback error. Stream might be offline.';
                             playerStatus.classList.add('text-red-400');
                             setPausedUI();
@@ -452,7 +542,6 @@
                 }
             });
 
-            // Handle Audio Events to ensure UI stays in sync
             audio.addEventListener('play', setPlayingUI);
             audio.addEventListener('pause', setPausedUI);
             audio.addEventListener('ended', setPausedUI);
@@ -463,17 +552,15 @@
                 playerStatus.classList.add('text-red-400');
             });
             audio.addEventListener('waiting', () => {
-                playIcon.classList.remove('fa-play', 'fa-pause', 'ml-2');
-                playIcon.classList.add('fa-spinner', 'fa-spin');
-                playerStatus.textContent = 'Buffering...';
+                playIcon.className = 'fa-solid fa-spinner fa-spin text-3xl';
+                playerStatus.textContent = 'Buffering / Connecting...';
             });
             audio.addEventListener('playing', setPlayingUI);
 
             // --- Volume Control ---
-            let currentVolume = 0.75; // 75%
+            let currentVolume = 0.75;
             let isMuted = false;
             
-            // Set initial volume
             audio.volume = currentVolume;
             updateVolumeUI(currentVolume);
 
@@ -482,8 +569,7 @@
                 volumeBar.style.width = `${percentage}%`;
                 volumeKnob.style.left = `${percentage}%`;
                 
-                // Update icon based on volume
-                muteBtn.className = ''; // reset classes
+                muteBtn.className = '';
                 if (vol === 0 || isMuted) {
                     muteBtn.classList.add('fa-solid', 'fa-volume-xmark', 'text-xl', 'text-red-400');
                 } else if (vol < 0.5) {
@@ -493,13 +579,11 @@
                 }
             }
 
-            // Click on volume bar
             volumeContainer.addEventListener('click', (e) => {
                 const rect = volumeContainer.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 let newVolume = x / rect.width;
                 
-                // Clamp between 0 and 1
                 newVolume = Math.max(0, Math.min(1, newVolume));
                 
                 isMuted = false;
@@ -508,7 +592,6 @@
                 updateVolumeUI(currentVolume);
             });
 
-            // Mute toggle
             muteBtn.addEventListener('click', () => {
                 isMuted = !isMuted;
                 if (isMuted) {
@@ -524,9 +607,7 @@
             
             const handleDrag = (e) => {
                 if (!isDragging) return;
-                
                 const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-                
                 const rect = volumeContainer.getBoundingClientRect();
                 let x = clientX - rect.left;
                 let newVolume = x / rect.width;
@@ -542,7 +623,6 @@
             volumeContainer.addEventListener('mousedown', () => isDragging = true);
             volumeContainer.addEventListener('touchstart', (e) => {
                 isDragging = true;
-
                 if(e.cancelable) e.preventDefault(); 
             }, { passive: false });
             
