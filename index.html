@@ -23,10 +23,10 @@
                         heading: ['Poppins', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#6366f1', // Indigo 500
-                        secondary: '#ec4899', // Pink 500
-                        dark: '#0f172a', // Slate 900
-                        darker: '#020617', // Slate 950
+                        primary: '#6366f1',
+                        secondary: '#ec4899',
+                        dark: '#0f172a',
+                        darker: '#020617',
                         light: '#f8fafc',
                     },
                     animation: {
@@ -155,11 +155,9 @@
     </nav>
 
     <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex-grow flex items-center">
-        <!-- Background decorative elements -->
         <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
             <div class="absolute -top-40 -right-40 w-96 h-96 bg-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow"></div>
             <div class="absolute top-40 -left-40 w-96 h-96 bg-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow" style="animation-delay: 2s;"></div>
-            <!-- Subtle grid background -->
             <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-50"></div>
         </div>
 
@@ -418,7 +416,39 @@
             let animationFrameId = null;
             let faviconAnimInterval = null;
 
-            // Canvas generator for animated playing favicon indicator
+            // Media Session setup for Mobile Notification Shade / Lock Screen
+            function setupMediaSession() {
+                if ('mediaSession' in navigator) {
+                    const iconUrl = new URL('the-glow-network.png', window.location.href).href;
+                    
+                    navigator.mediaSession.metadata = new MediaMetadata({
+                        title: 'Live 24/7 Stream',
+                        artist: 'Glowwave-FM',
+                        album: 'The Glow-Network',
+                        artwork: [
+                            { src: iconUrl, sizes: '96x96', type: 'image/png' },
+                            { src: iconUrl, sizes: '128x128', type: 'image/png' },
+                            { src: iconUrl, sizes: '192x192', type: 'image/png' },
+                            { src: iconUrl, sizes: '256x256', type: 'image/png' },
+                            { src: iconUrl, sizes: '384x384', type: 'image/png' },
+                            { src: iconUrl, sizes: '512x512', type: 'image/png' }
+                        ]
+                    });
+
+                    // OS Controls Event Listeners
+                    navigator.mediaSession.setActionHandler('play', () => {
+                        audio.play();
+                    });
+                    navigator.mediaSession.setActionHandler('pause', () => {
+                        audio.pause();
+                    });
+                    navigator.mediaSession.setActionHandler('stop', () => {
+                        audio.pause();
+                    });
+                }
+            }
+
+            // Canvas generator for animated playing favicon indicator in tab bar
             function updateDynamicFavicon() {
                 if (audio.paused) return;
                 const canvas = document.createElement('canvas');
@@ -426,18 +456,15 @@
                 canvas.height = 64;
                 const ctx = canvas.getContext('2d');
 
-                // Dark rounded background
                 ctx.fillStyle = '#020617';
                 ctx.beginPath();
                 ctx.roundRect(0, 0, 64, 64, 16);
                 ctx.fill();
 
-                // Glowing border
                 ctx.strokeStyle = '#6366f1';
                 ctx.lineWidth = 4;
                 ctx.stroke();
 
-                // Draw bouncing audio bars inside favicon
                 const barWidth = 8;
                 const gap = 5;
                 let startX = 11;
@@ -516,6 +543,12 @@
                 playerStatus.classList.add('text-primary');
                 
                 initAudioContext();
+                setupMediaSession();
+
+                if ('mediaSession' in navigator) {
+                    navigator.mediaSession.playbackState = 'playing';
+                }
+
                 if (!animationFrameId) {
                     updateAudioMeters();
                 }
@@ -536,17 +569,19 @@
                 gainBarL.style.width = '0%';
                 gainBarR.style.width = '0%';
 
+                if ('mediaSession' in navigator) {
+                    navigator.mediaSession.playbackState = 'paused';
+                }
+
                 if (faviconAnimInterval) {
                     clearInterval(faviconAnimInterval);
                     faviconAnimInterval = null;
                 }
-                // Reset favicon back to default logo
                 faviconTag.href = "the-glow-network.png";
             };
 
             heroRecord.style.animationPlayState = 'paused';
 
-            // Reconnect / Play / Pause Toggle Handler
             playPauseBtn.addEventListener('click', () => {
                 const currentTime = Date.now();
                 const isDoubleClick = (currentTime - lastClickTime) < doubleClickThreshold;
@@ -609,7 +644,6 @@
             });
             audio.addEventListener('playing', setPlayingUI);
 
-            // --- Volume Control ---
             let currentVolume = 0.75;
             let isMuted = false;
             
