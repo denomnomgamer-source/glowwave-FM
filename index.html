@@ -6,7 +6,7 @@
     <title>Glowwave-FM | The Glow-Network & IPTV Stream</title>
     <link id="favicon" rel="icon" type="image/png" href="the-glow-network.png">
     <meta name="description" content="Tune in to Glowwave-FM, your premier internet radio station and IPTV entertainment hub. Listen to live streams, electronic beats, glowing vibes, and top IPTV services.">
-    <meta name="keywords" content="glow, glowwave, glowwave-fm, glow radio, radio station, live stream, internet radio, glow music, electronic radio, fm radio, music stream, IPTV, glowtv, IPTV stream, live IPTV, streaming services">
+    <meta name="keywords" content="glow, glowwave, glowwave-fm, glow radio, radio station, live stream, internet radio, glow music, glow fm, electronic radio, fm radio, music stream, IPTV, glowtv, IPTV stream, live IPTV, streaming services">
     <meta name="author" content="Glowwave-FM">
     <meta property="og:title" content="Glowwave-FM | Live Radio & IPTV Hub">
     <meta property="og:description" content="Feel the glow. Listen to Glowwave-FM live 24/7 and explore our IPTV services.">
@@ -174,7 +174,7 @@
                         The City.
                     </h1>
                     <p class="mt-4 text-xl text-gray-400 max-w-2xl mx-auto lg:mx-0 mb-8 font-light">
-                        Broadcasting the best electronic, indie, and alternative beats. Tune in to Glowwave-FM and elevate your auditory experience.
+                        Broadcasting the best beats. Tune in to Glowwave-FM and elevate your auditory experience.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                         <button onclick="document.getElementById('player-section').scrollIntoView({behavior: 'smooth'})" class="bg-white text-darker hover:bg-gray-200 font-bold py-4 px-8 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-transform transform hover:-translate-y-1 flex items-center justify-center gap-3">
@@ -324,7 +324,7 @@
                         <span class="font-heading font-bold text-xl tracking-tight text-white">Glowwave<span class="text-primary">-FM</span></span>
                     </div>
                     <p class="text-gray-400 text-sm max-w-sm mb-6">
-                        Independent radio broadcasting live from the heart of the city. Supporting local artists and bringing you the best alternative sounds 24/7.
+                        Independent radio broadcasting live from the heart of a undisclosed location. Supporting local artists and bringing you the best sounds 24/7.
                     </p>
                 </div>
 
@@ -333,7 +333,7 @@
                     <ul class="space-y-2 text-sm text-gray-400">
                         <li><a href="https://glowwavefm.com/" class="hover:text-primary transition-colors">Home</a></li>
                         <li><a href="https://glowtv.org/glowtv" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">IPTV Service</a></li>
-                        <li><a href="https://glownetwork.net" class="hover:text-primary transition-colors">Home</a></li>
+                        <li><a href="https://glownetwork.net" class="hover:text-primary transition-colors">The Glow-Network</a></li>
                         <li><a href="https://glowwavefm.com/contact" class="hover:text-primary transition-colors">Contact Us</a></li>
                         <li><a href="https://glowwavefm.com/" class="hover:text-primary transition-colors">Submit Music</a></li>
                     </ul>
@@ -416,7 +416,6 @@
             let animationFrameId = null;
             let faviconAnimInterval = null;
 
-            // Media Session setup for Mobile Notification Shade / Lock Screen
             function setupMediaSession() {
                 if ('mediaSession' in navigator) {
                     const iconUrl = new URL('the-glow-network.png', window.location.href).href;
@@ -435,7 +434,6 @@
                         ]
                     });
 
-                    // OS Controls Event Listeners
                     navigator.mediaSession.setActionHandler('play', () => {
                         audio.play();
                     });
@@ -448,7 +446,6 @@
                 }
             }
 
-            // Canvas generator for animated playing favicon indicator in tab bar
             function updateDynamicFavicon() {
                 if (audio.paused) return;
                 const canvas = document.createElement('canvas');
